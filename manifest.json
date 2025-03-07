@@ -3,7 +3,10 @@
   "name": "Focusmode",
   "version": "1.0.0",
   "description": "Blocks sites so that you can focus on important things",
-  "permissions": ["storage", "webNavigation"],
+  "permissions": [
+    "storage",
+    "webNavigation"
+  ],
   "background": {
     "service_worker": "background.js"
   },
@@ -12,6 +15,11 @@
     "open_in_tab": true
   },
   "action": {
-    "default_popup": "html/settings.html"
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
   }
 }

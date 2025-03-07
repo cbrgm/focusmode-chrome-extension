@@ -16,6 +16,7 @@
             background: #fff;
             color: #202124;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
@@ -82,6 +83,24 @@
             background-color: #174ea6;
         }
 
+        .footer {
+            font-size: 12px;
+            color: #777;
+            margin-top: 20px;
+            text-align: center;
+            padding: 10px;
+            border-top: 1px solid #e0e0e0;
+            width: 600px;
+            max-width: 100%;
+        }
+        .footer a {
+            color: #1a73e8;
+            text-decoration: none;
+        }
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
         /* Dark Mode */
         @media (prefers-color-scheme: dark) {
             body {
@@ -110,6 +129,13 @@
             button:hover {
                 background-color: #669df6;
             }
+            .footer {
+                border-top: 1px solid #333;
+                color: #b0b0b0;
+            }
+            .footer a {
+                color: #8ab4f8;
+            }
         }
     </style>
 </head>
@@ -120,6 +146,14 @@
         <p>Enter URLs of websites to block, one per line. Click "Save" to apply changes.</p>
         <textarea id="focusmodeBlockedWebsites" placeholder="Enter URLs here..."></textarea>
         <button id="focusmodeSaveWebsites">Save</button>
+    </div>
+    <div class="footer">
+        <p>
+            <a href="https://github.com/cbrgm/focusmode-chrome-extension" target="_blank">Source Code</a> |
+            <a href="https://github.com/cbrgm/focusmode-chrome-extension/releases" target="_blank">Releases</a> |
+            <a href="https://github.com/cbrgm/focusmode-chrome-extension/issues" target="_blank">Report Issues</a> |
+            <a href="https://cbrgm.net/" target="_blank">Dev Blog</a>
+        </p>
     </div>
 </body>
 </html>

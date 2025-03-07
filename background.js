@@ -4,13 +4,6 @@ chrome.action.onClicked.addListener(() => {
     const newStatus = !result.focusModeEnabled;
     chrome.storage.local.set({ focusModeEnabled: newStatus }, () => {
       updateIcon(newStatus);
-
-      // Apply new setting to all open tabs
-      chrome.tabs.query({}, (tabs) => {
-        tabs.forEach((tab) => {
-          checkAndBlockSite(tab);
-        });
-      });
     });
   });
 });
@@ -40,22 +33,30 @@ function updateIcon(enabled) {
 
 // Check if a site should be blocked
 function checkAndBlockSite(details) {
-  chrome.storage.local.get(["focusModeEnabled", "blockedWebsites"], (result) => {
-    if (!result.focusModeEnabled) return; // Exit if Focus Mode is off
+  // Ignore non-HTTP URLs or missing URLs
+  if (!details.url || !details.url.startsWith("http")) return;
 
+  try {
     const url = new URL(details.url);
     const hostname = url.hostname;
-    const blockedWebsites = result.blockedWebsites || [];
 
-    for (const website of blockedWebsites) {
-      const pattern = new RegExp(`^(www\\.)?${website.replace(/\./g, "\\.")}$`);
-      if (pattern.test(hostname)) {
-        chrome.tabs.update(details.tabId, {
-          url: chrome.runtime.getURL("html/blocked.html"),
-        });
-        break;
+    chrome.storage.local.get(["focusModeEnabled", "blockedWebsites"], (result) => {
+      if (!result.focusModeEnabled) return; // Exit if Focus Mode is off
+
+      const blockedWebsites = result.blockedWebsites || [];
+
+      for (const website of blockedWebsites) {
+        const pattern = new RegExp(`^(www\\.)?${website.replace(/\./g, "\\.")}$`);
+        if (pattern.test(hostname)) {
+          chrome.tabs.update(details.tabId, {
+            url: chrome.runtime.getURL("html/blocked.html"),
+          });
+          break;
+        }
       }
-    }
-  });
+    });
+  } catch (e) {
+    console.error("Invalid URL encountered:", details.url, e);
+  }
 }
 

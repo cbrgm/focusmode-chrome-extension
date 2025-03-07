@@ -4,7 +4,6 @@ chrome.action.onClicked.addListener(() => {
     const newStatus = !result.focusModeEnabled;
     chrome.storage.local.set({ focusModeEnabled: newStatus }, () => {
       updateIcon(newStatus);
-      alert(newStatus ? "✅ Focus Mode Activated" : "❌ Focus Mode Deactivated");
 
       // Apply new setting to all open tabs
       chrome.tabs.query({}, (tabs) => {

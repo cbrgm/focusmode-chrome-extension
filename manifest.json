@@ -1,0 +1,17 @@
+{
+  "manifest_version": 3,
+  "name": "Focusmode",
+  "version": "1.0.0",
+  "description": "Blocks sites so that you can focus on important things",
+  "permissions": ["storage", "webNavigation"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "options_ui": {
+    "page": "html/settings.html",
+    "open_in_tab": true
+  },
+  "action": {
+    "default_popup": "html/settings.html"
+  }
+}

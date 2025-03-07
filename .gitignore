@@ -1,0 +1,6 @@
+*~
+*.DS_store
+node_modules
+_metadata
+dist
+*.swp # vim temp files

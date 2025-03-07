@@ -1,35 +1,37 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const blockedWebsitesTextarea = document.getElementById("focusmodeBlockedWebsites");
-  const saveButton = document.getElementById("focusmodeSaveWebsites");
+document.addEventListener('DOMContentLoaded', () => {
+  const blockedWebsitesTextarea = document.getElementById(
+    'focusmodeBlockedWebsites'
+  );
+  const saveButton = document.getElementById('focusmodeSaveWebsites');
 
-  const feedbackMessage = document.createElement("p");
-  feedbackMessage.style.fontSize = "14px";
-  feedbackMessage.style.marginTop = "10px";
-  feedbackMessage.style.display = "none";
-  saveButton.insertAdjacentElement("afterend", feedbackMessage);
+  const feedbackMessage = document.createElement('p');
+  feedbackMessage.style.fontSize = '14px';
+  feedbackMessage.style.marginTop = '10px';
+  feedbackMessage.style.display = 'none';
+  saveButton.insertAdjacentElement('afterend', feedbackMessage);
 
   // Load stored blocked websites
-  chrome.storage.local.get("blockedWebsites", (result) => {
-    blockedWebsitesTextarea.value = (result.blockedWebsites || []).join("\n");
+  chrome.storage.local.get('blockedWebsites', (result) => {
+    blockedWebsitesTextarea.value = (result.blockedWebsites || []).join('\n');
   });
 
-  saveButton.addEventListener("click", () => {
+  saveButton.addEventListener('click', () => {
     const rawEntries = blockedWebsitesTextarea.value
-      .split("\n")
-      .map(line => line.trim())
-      .filter(line => line !== "");
+      .split('\n')
+      .map((line) => line.trim())
+      .filter((line) => line !== '');
 
     const { validDomains, invalidEntries } = processEntries(rawEntries);
 
     if (invalidEntries.length) {
-      showFeedbackMessage("Some entries are invalid. Please check.", "red");
+      showFeedbackMessage('Some entries are invalid. Please check.', 'red');
       return;
     }
 
     // Save cleaned domains
     chrome.storage.local.set({ blockedWebsites: validDomains }, () => {
-      blockedWebsitesTextarea.value = validDomains.join("\n");
-      showFeedbackMessage("Entries applied and sorted.", "green");
+      blockedWebsitesTextarea.value = validDomains.join('\n');
+      showFeedbackMessage('Entries applied and sorted.', 'green');
     });
   });
 
@@ -37,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const validDomains = new Set();
     const invalidEntries = [];
 
-    entries.forEach(entry => {
+    entries.forEach((entry) => {
       const domain = extractDomain(entry);
       domain ? validDomains.add(domain) : invalidEntries.push(entry);
     });
@@ -47,8 +49,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function extractDomain(url) {
     try {
-      const formattedUrl = url.startsWith("http") ? url : "http://" + url;
-      const hostname = new URL(formattedUrl).hostname.replace(/^www\./, "");
+      const formattedUrl = url.startsWith('http') ? url : 'http://' + url;
+      const hostname = new URL(formattedUrl).hostname.replace(/^www\./, '');
       return /^[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(hostname) ? hostname : null;
     } catch {
       return null;
@@ -58,7 +60,6 @@ document.addEventListener("DOMContentLoaded", () => {
   function showFeedbackMessage(message, color) {
     feedbackMessage.textContent = message;
     feedbackMessage.style.color = color;
-    feedbackMessage.style.display = "block";
+    feedbackMessage.style.display = 'block';
   }
 });
-

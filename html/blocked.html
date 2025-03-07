@@ -5,10 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blocked Site</title>
     <style>
+        /* Light Mode (Default) */
         body {
             font-family: 'Roboto', Arial, sans-serif;
             text-align: center;
-            background-color: #f8f9fa;
+            background-color: #fff;
             color: #202124;
             display: flex;
             flex-direction: column;
@@ -20,8 +21,6 @@
         .container {
             background: #fff;
             padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             max-width: 400px;
             width: 90%;
         }
@@ -29,6 +28,18 @@
             font-size: 22px;
             font-weight: 500;
             margin-bottom: 10px;
+            position: relative;
+            color: #4caf50;
+            text-shadow: 0 0 4px rgba(76, 175, 80, 0.5);
+            animation: softPulse 3s infinite alternate ease-in-out;
+        }
+        @keyframes softPulse {
+            0% {
+                text-shadow: 0 0 4px rgba(76, 175, 80, 0.4);
+            }
+            100% {
+                text-shadow: 0 0 8px rgba(76, 175, 80, 0.6);
+            }
         }
         p {
             font-size: 14px;
@@ -36,15 +47,41 @@
             margin-bottom: 20px;
         }
         .icon {
-            font-size: 50px;
-            color: #ea4335;
+            width: 64px;
+            height: 64px;
             margin-bottom: 10px;
+        }
+
+        /* Dark Mode */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: #181818;
+                color: #e0e0e0;
+            }
+            .container {
+                background-color: #181818;
+            }
+            p {
+                color: #b0b0b0;
+            }
+            h1 {
+                color: #66bb6a;
+                text-shadow: 0 0 4px rgba(102, 187, 106, 0.4);
+            }
+            @keyframes softPulse {
+                0% {
+                    text-shadow: 0 0 4px rgba(102, 187, 106, 0.4);
+                }
+                100% {
+                    text-shadow: 0 0 8px rgba(102, 187, 106, 0.6);
+                }
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="icon">🚫</div>
+        <img src="../icons/icon128.png" alt="Focusmode Icon" class="icon">
         <h1>Focus Mode Active</h1>
         <p>This website is blocked to help you stay focused.</p>
     </div>

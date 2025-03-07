@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Settings</title>
-    <script type="text/javascript" src="../js/siteblock.js"></script>
     <script type="text/javascript" src="../js/settings.js"></script>
     <style>
         * {
@@ -29,6 +28,12 @@
             max-width: 100%;
             display: flex;
             flex-direction: column;
+            align-items: center;
+        }
+        .icon {
+            width: 64px;
+            height: 64px;
+            margin-bottom: 10px;
         }
         h1 {
             font-size: 20px;
@@ -53,6 +58,7 @@
             background-color: #fff;
             color: #202124;
             height: 250px;
+            width: 100%;
         }
         textarea:focus {
             border-color: #1a73e8;
@@ -70,14 +76,46 @@
             border-radius: 6px;
             cursor: pointer;
             transition: background-color 0.2s;
+            width: 100%;
         }
         button:hover {
             background-color: #174ea6;
+        }
+
+        /* Dark Mode */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: #181818;
+                color: #e0e0e0;
+            }
+            .container {
+                background-color: #181818;
+            }
+            p {
+                color: #b0b0b0;
+            }
+            textarea {
+                background-color: #202124;
+                color: #e0e0e0;
+                border: 1px solid #5f6368;
+            }
+            textarea:focus {
+                border-color: #8ab4f8;
+                box-shadow: 0 0 0 2px rgba(138, 180, 248, 0.3);
+            }
+            button {
+                background-color: #8ab4f8;
+                color: #202124;
+            }
+            button:hover {
+                background-color: #669df6;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
+        <img src="../icons/icon128.png" alt="Focusmode Icon" class="icon">
         <h1>Settings</h1>
         <p>Enter URLs of websites to block, one per line. Click "Save" to apply changes.</p>
         <textarea id="focusmodeBlockedWebsites" placeholder="Enter URLs here..."></textarea>

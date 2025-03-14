@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const { validDomains, invalidEntries } = processEntries(rawEntries);
 
     if (invalidEntries.length) {
-      showFeedbackMessage('Some entries are invalid. Please check.', 'red');
+      showFeedbackMessage('Some entries are invalid. Please check: ' + invalidEntries.join(','), 'red');
       return;
     }
 

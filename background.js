@@ -46,12 +46,23 @@ function checkAndBlockSite(details) {
       const blockedWebsites = result.blockedWebsites || [];
 
       for (const website of blockedWebsites) {
-        const pattern = new RegExp(`^(www\\.)?${website.replace(/\./g, "\\.")}$`);
-        if (pattern.test(hostname)) {
-          chrome.tabs.update(details.tabId, {
-            url: chrome.runtime.getURL("html/blocked.html"),
-          });
-          break;
+        if (website.startsWith('*.')) {
+          const domainSuffix = website.substring(2);
+          if (hostname === domainSuffix || hostname.endsWith('.' + domainSuffix)) {
+            chrome.tabs.update(details.tabId, {
+              url: chrome.runtime.getURL("html/blocked.html"),
+            });
+            break;
+          }
+        }
+        else {
+          const pattern = new RegExp(`^(www\\.)?${website.replace(/\./g, "\\.")}$`);
+          if (pattern.test(hostname)) {
+            chrome.tabs.update(details.tabId, {
+              url: chrome.runtime.getURL("html/blocked.html"),
+            });
+            break;
+          }
         }
       }
     });

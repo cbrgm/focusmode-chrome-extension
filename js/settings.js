@@ -48,6 +48,14 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function extractDomain(url) {
+    if (url.startsWith('*.')) {
+      const domain = url.substring(2);
+      if (/^[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(domain)) {
+        return url;
+      }
+      return null;
+    }
+
     try {
       const formattedUrl = url.startsWith('http') ? url : 'http://' + url;
       const hostname = new URL(formattedUrl).hostname.replace(/^www\./, '');

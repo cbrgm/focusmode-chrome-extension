@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/cbrgm/focusmode-chrome-extension#readme",
   "devDependencies": {
-    "@eslint/js": "9.23.0",
+    "@eslint/js": "9.24.0",
     "chrome-types": "0.1.347",
     "eslint": "9.23.0",
     "eslint-config-prettier": "10.1.1",
